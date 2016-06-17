@@ -4,7 +4,7 @@
 
 -写前必须擦除，每个块的擦除操作是有一定寿命的。
 
-#六个技术点,
+#六个技术点
 
 -Flash-friendly on-disk layout:文件系统分为superblock(SB),Checkpoint(CP),Segment Info(SIT),Node Address
 
@@ -26,17 +26,13 @@ logging让随机写变顺序写，在内存利用率较高的时候，进行thre
 
 #checkpoint怎么做
 
-1. flush所有的脏节点和目录项在page cache
+1.flush所有在page cache的脏节点和目录项
 
-2.它将挂起写活动，包括系统调用如create,unlinkandmkdir;
+2.挂起写活动，包括系统调用如create,unlink and mkdir;
 
 3.文件系统的元数据，NAT，SIT和SSA被写入磁盘中特定区域
 
-4.写一个包括以下信息的checkpoint pack到CP区域(Header and
-
-footer/NAT and SIT bitmaps/NAT and SIT journals/Summary blocks of active
-
-segments/Orphan blocks)
+4.写一个包括以下信息的checkpoint pack到CP区域(Header and footer/NAT and SIT bitmaps/NAT and SIT journals/Summary blocks of active segments/Orphan blocks)
 
 #Wandering tree问题
 
